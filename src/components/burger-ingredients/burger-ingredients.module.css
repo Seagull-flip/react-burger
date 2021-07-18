@@ -1,0 +1,15 @@
+.scrollingSection {
+	height: 686px;
+	overflow: auto;
+}
+.scrollingSection::-webkit-scrollbar {
+	width: 8px;
+  background-color: #2f2f37;
+}
+.scrollingSection::-webkit-scrollbar-thumb {
+	background-color: #8585ad;
+}
+.textCont {
+	display: flex;
+	justify-content: center;
+}

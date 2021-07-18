@@ -1,0 +1,32 @@
+.navPanel {
+	height: 88px;
+	width: 100%;
+	position: relative;
+	/* left: 40px;
+	top: 40px;
+	border-radius: 0px; */
+	background: #1C1C21;
+	
+}
+ul{
+	list-style-type: none;
+	padding-inline-start: 0;
+}
+
+ul:nth-child(2) {
+	margin-left: -125px;
+}
+.wrapperNav {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.rowNav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.rowTi {
+	display: block;
+}

@@ -1,0 +1,10 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.mainContainer {
+	width: 1240;
+	height: 912;
+	display: flex;
+}
