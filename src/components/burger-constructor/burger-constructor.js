@@ -1,13 +1,12 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { databurg } from '../../utils/data.js';
+import PropTypes from 'prop-types';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = () => {
-
+const BurgerConstructor = (props) => {
 	return (
 		<div className={`${styles.container} pr-4 pl-4 ml-10`}>
 			<ul>
@@ -24,7 +23,7 @@ const BurgerConstructor = () => {
 				</li>
 				<li className='mb-4'>
 					<ul className={styles.scrollList}>
-						{databurg.map((elem) => {
+						{props.arr.map((elem) => {
 							if (elem.type !== 'bun') {
 								return (
 									<li className='mb-4 ml-2'>
@@ -61,6 +60,12 @@ const BurgerConstructor = () => {
 	)
 }
 
-// const ConstructorMiddleElement = (props) =>
+BurgerConstructor.propTypes = {
+	arr: PropTypes.arrayOf(PropTypes.shape({
+		name: PropTypes.string.isRequired,
+		image: PropTypes.string.isRequired,
+		price: PropTypes.number.isRequired
+	})).isRequired
+}
 
 export default BurgerConstructor;
