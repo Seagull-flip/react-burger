@@ -7,7 +7,7 @@ const BigCard = (props) => {
 			{props.arr.map((elem) => {
 				if (elem.type == props.type) {
 					return (
-						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} />
+						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} info={elem} />
 					)
 				}
 			})}
