@@ -26,6 +26,7 @@ function App() {
 		getBurgerData();
 	}, [])
 
+
 	return (
 		<>
 			{state.hasError && <div>Ошибка выполнения запроса ...</div>}

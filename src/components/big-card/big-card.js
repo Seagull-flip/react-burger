@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import Card from '../card/card';
 
-const BigCard = (props) => {
+const BigCard = ({ lookDetails, arr, type, modal }) => {
+
+
+
 	return (
 		<div className='pt-6 pr-1 pb-10 pl-4' style={{ display: 'flex', flexWrap: 'wrap' }}>
-			{props.arr.map((elem) => {
-				if (elem.type == props.type) {
+			{arr.map((elem) => {
+				if (elem.type == type) {
 					return (
-						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} info={elem} />
+						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} onclick={modal} ondetails={lookDetails} info={elem} />
 					)
 				}
 			})}

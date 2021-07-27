@@ -6,13 +6,18 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState } from 'react';
-import ModalOverlay from '../modal-overlay/modal-overlay.js'
+import Modal from '../modal/modal.js';
+import OrderDetails from '../order-details/order-details.js'
 
 const BurgerConstructor = (props) => {
 	const [modalActive, setModalActive] = React.useState(false);
 	return (
 		<>
-			{modalActive && <ModalOverlay active={modalActive} setActive={setModalActive} card={false} />}
+			{modalActive &&
+				<Modal active={modalActive} setActive={setModalActive} title=''>
+					<OrderDetails />
+				</Modal>
+			}
 			<div className={`${styles.container} pr-4 pl-4 ml-10`}>
 				<ul>
 					<li className='mb-4 ml-8'>

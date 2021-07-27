@@ -1,37 +1,30 @@
-
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import st from './card.css';
-import ModalOverlay from '../modal-overlay/modal-overlay.js'
 
-const Card = (props) => {
+const Card = ({ onclick, image, price, name, ondetails, info }) => {
 	const [count, setCount] = React.useState(0);
-	const [modalActive, setModalActive] = React.useState(false);
-	const [isCard, setIsCard] = React.useState(false);
-	const [cardInfo, setCardInfo] = React.useState(props.info);
+	const onClick = () => {
+		onclick(true);
+		ondetails(info)
+	}
 	return (
 		<>
-			{modalActive && <ModalOverlay active={modalActive} setActive={setModalActive} card={isCard} info={cardInfo} />}
-			<div className='ml-4 mb-8' style={{ width: '265px' }} onClick={() => {
-				setCount(count + 1);
-				setModalActive(true);
-				setIsCard(true);
-
-			}}>
+			<div className='ml-4 mb-8' style={{ width: '265px' }} onClick={onClick}>
 
 				<div style={{ position: 'relative' }}>
 					<Counter count={count} size="default" />
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-					<img className='mb-1' src={props.image}></img>
-					<div className='mb-1' style={{ display: 'flex' }}><p className="text text_type_digits-default">{props.price}</p><CurrencyIcon type="primary" /></div>
+					<img className='mb-1' src={image}></img>
+					<div className='mb-1' style={{ display: 'flex' }}><p className="text text_type_digits-default">{price}</p><CurrencyIcon type="primary" /></div>
 				</div>
 
 				<div className={st.textCont}>
 					<p className="text text_type_main-default" style={{ textAlign: "center" }}>
-						{props.name}
+						{name}
 					</p>
 				</div>
 			</div >
