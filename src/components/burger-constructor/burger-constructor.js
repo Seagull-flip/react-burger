@@ -5,12 +5,15 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component, useContext } from 'react';
 import Modal from '../modal/modal.js';
 import OrderDetails from '../order-details/order-details.js'
+import { AppDataContext } from '../../utils/context';
 
 const BurgerConstructor = (props) => {
 	const [modalActive, setModalActive] = React.useState(false);
+	const { state, setState } = useContext(AppDataContext);
+	const dataArr = state.data;
 	return (
 		<>
 			{modalActive &&
@@ -33,7 +36,7 @@ const BurgerConstructor = (props) => {
 					</li>
 					<li className='mb-4'>
 						<ul className={styles.scrollList}>
-							{props.arr.map((elem) => {
+							{dataArr.map((elem) => {
 								if (elem.type !== 'bun') {
 									return (
 										<li className='mb-4 ml-2' key={elem._id} >

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import AppHeader from '../app-header/app-header.js';
 import BurgerConstructor from '../burger-constructor/burger-constructor.js';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
-
+import { AppDataContext } from '../../utils/context';
 
 
 function App() {
@@ -32,10 +32,12 @@ function App() {
 			{state.hasError && <div>Ошибка выполнения запроса ...</div>}
 			<AppHeader />
 			<div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-				<BurgerIngredients dat={state.data} />
-				<div className='pt-25'>
-					<BurgerConstructor arr={state.data} />
-				</div>
+				<AppDataContext.Provider value={{ state, setState }}>
+					<BurgerIngredients dat={state.data} />
+					<div className='pt-25'>
+						<BurgerConstructor />
+					</div>
+				</AppDataContext.Provider>
 			</div>
 		</ >
 	);
