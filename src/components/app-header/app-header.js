@@ -10,7 +10,7 @@ import header from './app-header.module.css'
 const AppHeader = (props) => {
 	return (<header className={header.navPanel}>
 		<div style={{ position: 'absolute', top: '20%', left: '40%' }}><Logo /></div>
-		<nav className=''>
+		<nav className={header.short}>
 			<ul className={`${header.wrapperNav}`}>
 				<li className={`${header.rowNav} mt-7`}>
 					<a className={`${header.rowNav} text text_type_main-default mr-2 pl-5 pr-5`}><BurgerIcon type="primary" /><span className="ml-2">Конструктор</span></a>

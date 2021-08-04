@@ -4,39 +4,54 @@ import Tabs from '../tabs/tabs';
 import BigCard from '../big-card/big-card';
 import ingred from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import IngredientDetails from '../ingredient-details/ingredient-details.js';
+import Modal from '../modal/modal.js';
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({ dat }) => {
+	const [modalAct, setModalAct] = React.useState(false);
+	const [dataIngredients, setDataIngredients] = React.useState([])
+
+	console.log(dataIngredients);
+
 	return (
-		<section style={{ width: '600px' }}>
-			<div className='mt-10 mb-5'>
-				<p className="text text_type_main-large">
-					Соберите бургер
-				</p>
-			</div>
-			<div className='mb-10'>
-				<Tabs />
-			</div>
-			<section className={ingred.scrollingSection}>
-				<div>
-					<p className="text text_type_main-medium">
-						Булки
+		<>
+			{modalAct &&
+				<Modal active={modalAct} setActive={setModalAct} title='Детали ингредиента'>
+					<IngredientDetails data={dataIngredients} />
+				</Modal>}
+
+			<section style={{ width: '600px' }}>
+				<div className='mt-10 mb-5'>
+					<p className="text text_type_main-large">
+						Соберите бургер
 					</p>
-					<BigCard arr={props.dat} type='bun' />
 				</div>
-				<div>
-					<p className="text text_type_main-medium">
-						Соусы
-					</p>
-					<BigCard arr={props.dat} type='sauce' />
+				<div className='mb-10'>
+					<Tabs />
 				</div>
-				<div>
-					<p className="text text_type_main-medium">
-						Начинки
-					</p>
-					<BigCard arr={props.dat} type='main' />
-				</div>
+				<section className={ingred.scrollingSection}>
+					<div>
+						<p className="text text_type_main-medium">
+							Булки
+						</p>
+						<BigCard arr={dat} type='bun' modal={setModalAct} lookDetails={setDataIngredients} />
+					</div>
+					<div>
+						<p className="text text_type_main-medium">
+							Соусы
+						</p>
+						<BigCard arr={dat} type='sauce' modal={setModalAct} lookDetails={setDataIngredients} />
+					</div>
+					<div>
+						<p className="text text_type_main-medium">
+							Начинки
+						</p>
+						<BigCard arr={dat} type='main' modal={setModalAct} lookDetails={setDataIngredients} />
+					</div>
+				</section>
 			</section>
-		</section>
+		</>
 	)
 }
 
