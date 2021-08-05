@@ -12,7 +12,7 @@ const BurgerIngredients = ({ dat }) => {
 	const [modalAct, setModalAct] = React.useState(false);
 	const [dataIngredients, setDataIngredients] = React.useState([])
 
-	console.log(dataIngredients);
+
 
 	return (
 		<>
