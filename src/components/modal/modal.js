@@ -6,11 +6,13 @@ import PropTypes from 'prop-types';
 import ModalOverlay from '../modal-overlay/modal-overlay.js';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { MODAL_DISACTIVE } from '../../services/actions/index.js'
 
-
-const Modal = ({ setActive, children, title }) => {
+const Modal = ({ children, title }) => {
+	const dispatch = useDispatch();
 	const toClose = () => {
-		setActive(false);
+		dispatch({ type: MODAL_DISACTIVE });
 	}
 	const modalRoot = document.getElementById("modals");
 

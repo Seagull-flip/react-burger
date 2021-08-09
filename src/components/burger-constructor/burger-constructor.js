@@ -1,34 +1,35 @@
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import PropTypes from 'prop-types';
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Typography } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useEffect, useState, Component, useContext } from 'react';
 import Modal from '../modal/modal.js';
 import OrderDetails from '../order-details/order-details.js'
-import { AppDataContext } from '../../utils/context';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrderNumber } from '../../services/actions/index.js';
+import { ORDER_MODAL_ACTIVE } from '../../services/actions/index.js'
 
 const BurgerConstructor = (props) => {
-	const [modalActive, setModalActive] = React.useState(false);
+	const data = useSelector(store => store.bigData.data);
+	const modalActive = useSelector(store => store.modal.orderModalActive);
+	const orderNumber = useSelector(store => store.orderData.orderNumber)
+	const dispatch = useDispatch();
+
 	const [totalPrice, setTotalPrice] = React.useState(0);
 	const [dataOrder, setDataOrder] = React.useState(0);
-	const [numberOrder, setNumberOrder] = React.useState({
-		loading: false,
-		hasError: false,
-		number: 0,
-	});
-	const { state, setState } = useContext(AppDataContext);
-	const dataArr = state.data;
-	const dataBun = state.data.find(elem => elem.type === 'bun');
-	const orderToken = 'https://norma.nomoreparties.space/api/orders'
+	const dataBun = data.find(elem => elem.type === 'bun');
 
-	console.log(dataArr)
+	const toOpen = () => {
+		dispatch(getOrderNumber(dataOrder));
+		dispatch({ type: ORDER_MODAL_ACTIVE });
+	}
+
 
 	React.useEffect(() => {
 		let total = 0;
-		dataArr.map(elem => {
+		data.map(elem => {
 			if (elem._id == "60d3b41abdacab0026a733c7") {
 				(total = total)
 			}
@@ -40,37 +41,23 @@ const BurgerConstructor = (props) => {
 		});
 		setTotalPrice(total);
 	},
-		[dataArr, setTotalPrice]
+		[data, setTotalPrice]
 	)
 
 	React.useEffect(() => {
 		let mass = [];
-		dataArr.map(elem => {
+		data.map(elem => {
 			mass.push(elem._id)
 		});
 		setDataOrder(mass);
-	}, [dataArr])
+	}, [data])
 
-	useEffect(() => {
-		fetch(orderToken, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ 'ingredients': dataOrder })
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then(data => setNumberOrder({ ...state, number: data.order.number, loading: false }))
-			.catch(e => console.log('Something wrong'));
-	}, [orderToken, dataOrder]);
-
-	console.log(numberOrder.number)
 
 	return (
 		<>
 			{modalActive &&
-				<Modal active={modalActive} setActive={setModalActive} title=''>
-					<OrderDetails number={numberOrder.number} />
+				<Modal title=''>
+					<OrderDetails number={orderNumber} />
 				</Modal>
 			}
 			<div className={`${styles.container} pr-4 pl-4 ml-10`}>
@@ -80,7 +67,7 @@ const BurgerConstructor = (props) => {
 							{dataBun && <ConstructorElement
 								type="top"
 								isLocked={true}
-								text={dataBun.name}
+								text={`${dataBun.name} (верх)`}
 								price={dataBun.price}
 								thumbnail={dataBun.image}
 							/>}
@@ -88,7 +75,7 @@ const BurgerConstructor = (props) => {
 					</li>
 					<li className='mb-4'>
 						<ul className={styles.scrollList}>
-							{dataArr.map((elem) => {
+							{data.map((elem) => {
 								if (elem.type !== 'bun') {
 									return (
 										<li className='mb-4 ml-2' key={elem._id} >
@@ -104,7 +91,7 @@ const BurgerConstructor = (props) => {
 							{dataBun && <ConstructorElement
 								type="bottom"
 								isLocked={true}
-								text={dataBun.name}
+								text={`${dataBun.name} (низ)`}
 								price={dataBun.price}
 								thumbnail={dataBun.image}
 							/>}
@@ -115,7 +102,7 @@ const BurgerConstructor = (props) => {
 					<p className="text text_type_digits-medium">{totalPrice}</p>
 					<CurrencyIcon type="primary" />
 					<div className='ml-10'>
-						<Button type="primary" size="large" onClick={() => setModalActive(!modalActive)}>Оформить заказ</Button>
+						<Button type="primary" size="large" onClick={toOpen}>Оформить заказ</Button>
 					</div>
 				</section>
 			</div >

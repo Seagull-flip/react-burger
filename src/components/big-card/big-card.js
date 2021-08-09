@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 import Card from '../card/card';
+import { useSelector, useDispatch } from 'react-redux';
 
-const BigCard = ({ lookDetails, arr, type, modal }) => {
 
+const BigCard = ({ type }) => {
 
+	const arr = useSelector(store => store.bigData.data)
 
 	return (
 		<div className='pt-6 pr-1 pb-10 pl-4' style={{ display: 'flex', flexWrap: 'wrap' }}>
 			{arr.map((elem) => {
 				if (elem.type == type) {
 					return (
-						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} onclick={modal} ondetails={lookDetails} info={elem} />
+						<Card image={elem.image} price={elem.price} name={elem.name} key={elem._id} info={elem} />
 					)
 				}
 			})}

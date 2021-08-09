@@ -4,20 +4,19 @@ import Tabs from '../tabs/tabs';
 import BigCard from '../big-card/big-card';
 import ingred from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import IngredientDetails from '../ingredient-details/ingredient-details.js';
 import Modal from '../modal/modal.js';
+import { useSelector, useDispatch } from 'react-redux';
 
-const BurgerIngredients = ({ dat }) => {
-	const [modalAct, setModalAct] = React.useState(false);
-	const [dataIngredients, setDataIngredients] = React.useState([])
-
-
+const BurgerIngredients = () => {
+	const modalAct = useSelector(store => store.modal.ingredientsModalActive);
+	const dataIngredients = useSelector(store => store.detailIngredients.detailIngrediens)
 
 	return (
 		<>
 			{modalAct &&
-				<Modal active={modalAct} setActive={setModalAct} title='Детали ингредиента'>
+				<Modal active={modalAct} title='Детали ингредиента'>
 					<IngredientDetails data={dataIngredients} />
 				</Modal>}
 
@@ -35,19 +34,19 @@ const BurgerIngredients = ({ dat }) => {
 						<p className="text text_type_main-medium">
 							Булки
 						</p>
-						<BigCard arr={dat} type='bun' modal={setModalAct} lookDetails={setDataIngredients} />
+						<BigCard type='bun' />
 					</div>
 					<div>
 						<p className="text text_type_main-medium">
 							Соусы
 						</p>
-						<BigCard arr={dat} type='sauce' modal={setModalAct} lookDetails={setDataIngredients} />
+						<BigCard type='sauce' />
 					</div>
 					<div>
 						<p className="text text_type_main-medium">
 							Начинки
 						</p>
-						<BigCard arr={dat} type='main' modal={setModalAct} lookDetails={setDataIngredients} />
+						<BigCard type='main' />
 					</div>
 				</section>
 			</section>

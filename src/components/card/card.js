@@ -3,16 +3,21 @@ import React, { useState } from 'react';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import st from './card.css';
+import { useDispatch } from 'react-redux';
+import { INGREDIENTS_MODAL_ACTIVE, SET_DETAIL_INGREDIENTS } from '../../services/actions/index.js';
 
-const Card = ({ onclick, image, price, name, ondetails, info }) => {
-	const [count, setCount] = React.useState(0);
-	const onClick = () => {
-		onclick(true);
-		ondetails(info)
+const Card = ({ image, price, name, info }) => {
+	const dispatch = useDispatch();
+
+	const toOpen = () => {
+		dispatch({ type: SET_DETAIL_INGREDIENTS, info: info })
+		dispatch({ type: INGREDIENTS_MODAL_ACTIVE });
 	}
+	const [count, setCount] = React.useState(0);
+
 	return (
 		<>
-			<div className='ml-4 mb-8' style={{ width: '265px' }} onClick={onClick}>
+			<div className='ml-4 mb-8' style={{ width: '265px' }} onClick={toOpen}>
 
 				<div style={{ position: 'relative' }}>
 					<Counter count={count} size="default" />

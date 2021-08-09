@@ -37,5 +37,6 @@ li:last-child {
 .bottomBoxContainer {
 	display: flex;
 	align-items: center;
-	margin-left: 210px;
+	
+	margin: 25px 0 0 210px;
 }
